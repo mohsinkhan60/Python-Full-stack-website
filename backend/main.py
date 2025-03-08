@@ -58,10 +58,12 @@ class RecipeResource(Resource):
         data = request.get_json()
         recipe_to_Update.update(data.get('title'), data.get('description'))
         return recipe_to_Update
+    
+    @api.marshal_with(recipe_model)
     def delete(self, id):
         recipe_to_delete = Recipe.query.get_or_404(id)
         recipe_to_delete.delete()
-        return None, 204
+        return recipe_to_delete
 
 @app.shell_context_processor
 def make_shell_context():
