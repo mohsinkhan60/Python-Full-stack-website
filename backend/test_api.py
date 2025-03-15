@@ -11,10 +11,6 @@ class APITestCase(unittest.TestCase):
         with self.app.app_context():
             db.create_all()
 
-    def tearDown(self):
-        with self.app.app_context():
-            db.session.remove()
-            db.drop_all()
 
     def test_hello_world(self):
         hello_response = self.client.get('/recipe/hello')
@@ -66,6 +62,7 @@ class APITestCase(unittest.TestCase):
         status_code = response.status_code
         # print(status_code)
         self.assertEqual(status_code, 404)
+
     def test_create_recipes(self):
         signup_response = self.client.post('/auth/signup',
             json={
@@ -81,7 +78,7 @@ class APITestCase(unittest.TestCase):
             }
         )
         access_token = login_response.json["access_token"]
-        print(access_token)
+        # print(access_token)
 
         create_recipe_response = self.client.post('/recipe/recipes',
             json={
@@ -93,13 +90,94 @@ class APITestCase(unittest.TestCase):
             }
         )
         status_code = create_recipe_response.status_code
-        print(create_recipe_response.json)
+        # print(create_recipe_response.json)
         self.assertEqual(status_code, 201)
 
     def test_update_recipes(self):
-        pass
+        signup_response = self.client.post('/auth/signup',
+            json={
+                'username': 'testuser',
+                'email': 'testuser@gmail.com',
+                'password': 'password'
+            }
+        )
+        login_response = self.client.post('/auth/login',
+            json={
+                'username': 'testuser',
+                'password': 'password'
+            }
+        )
+        access_token = login_response.json["access_token"]
+        # print(access_token)
+
+        create_recipe_response = self.client.post('/recipe/recipes',
+            json={
+                'title': 'test recipe',
+                'description': 'test description',
+            },
+            headers={
+                "Authorization": f"Bearer {access_token}"
+            }
+        )
+        status_code = create_recipe_response.status_code
+
+        id = 1
+        update_response = self.client.put(f'/recipe/recipe/{id}',
+            json={
+                'title': 'updated recipe',
+                'description': 'updated description',
+            },
+            headers={
+                "Authorization": f"Bearer {access_token}"
+            }
+        )
+        status_code = update_response.status_code
+        self.assertEqual(status_code, 200)
+
+
     def test_delete_recipes(self):
-        pass
+        signup_response = self.client.post('/auth/signup',
+            json={
+                'username': 'testuser',
+                'email': 'testuser@gmail.com',
+                'password': 'password'
+            }
+        )
+        login_response = self.client.post('/auth/login',
+            json={
+                'username': 'testuser',
+                'password': 'password'
+            }
+        )
+        access_token = login_response.json["access_token"]
+        # print(access_token)
+
+        create_recipe_response = self.client.post('/recipe/recipes',
+            json={
+                'title': 'test recipe',
+                'description': 'test description',
+            },
+            headers={
+                "Authorization": f"Bearer {access_token}"
+            }
+        )
+
+        id = 1
+        delete_response = self.client.delete(f'/recipe/recipe/{id}',
+            headers={
+                "Authorization": f"Bearer {access_token}"
+            }
+        )
+        status_code = delete_response.status_code
+        self.assertEqual(status_code, 200)
+        print(delete_response.json)
+
+
+    
+    def tearDown(self):
+        with self.app.app_context():
+            db.session.remove()
+            db.drop_all()
 
 if __name__ == '__main__':
     unittest.main()
