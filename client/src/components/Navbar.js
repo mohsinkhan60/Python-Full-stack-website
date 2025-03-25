@@ -30,7 +30,7 @@ const NavBar = () => {
   return (
     <>
       <Navbar className="px-3" bg="dark" data-bs-theme="dark">
-        <Navbar.Brand href="/">Recipes</Navbar.Brand>
+        <Navbar.Brand href="#">Recipes</Navbar.Brand>
         <Nav className="me-auto">
           {logged ? <LoggedInLink /> : <LoggedOutLink />}
         </Nav>
