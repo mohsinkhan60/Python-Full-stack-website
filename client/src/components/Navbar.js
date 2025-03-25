@@ -2,14 +2,14 @@ import React from "react";
 // import Container from 'react-bootstrap/Container';
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { useAuth } from "../auth";
+import { logout, useAuth } from "../auth";
 
 const LoggedInLink = () => {
   return (
     <>
       <Nav.Link href="/">Home</Nav.Link>
       <Nav.Link href="/create_recipe">Create Recipes</Nav.Link>
-      <Nav.Link href="#pricing">Log Out</Nav.Link>
+      <Nav.Link href="#" onClick={() => {logout()}}>Log Out</Nav.Link>
     </>
   );
 };
