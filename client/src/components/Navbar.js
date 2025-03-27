@@ -9,7 +9,7 @@ const LoggedInLink = () => {
     <>
       <Nav.Link href="/">Home</Nav.Link>
       <Nav.Link href="/create_recipe">Create Recipes</Nav.Link>
-      <Nav.Link href="#" onClick={() => {logout()}}>Log Out</Nav.Link>
+      <Nav.Link href="/login" onClick={() => {logout()}}>Log Out</Nav.Link>
     </>
   );
 };

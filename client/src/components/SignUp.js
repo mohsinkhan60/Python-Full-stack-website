@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Alert, Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -36,6 +37,7 @@ const SignUp = () => {
           console.log(data);
           setServerResponse(data.message);
           setShow(true);
+          navigate("/");
         })
         .catch((err) => console.log(err));
 

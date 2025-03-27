@@ -27,14 +27,11 @@ const Login = () => {
         
         if (data){
          login(data.access_token)
-
          navigate('/')
         }
         else{
             alert('Invalid username or password')
         }
-
-
       })
     }
 
