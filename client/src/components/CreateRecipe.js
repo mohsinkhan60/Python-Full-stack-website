@@ -1,5 +1,6 @@
 import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const CreateRecipe = () => {
   const {
@@ -8,6 +9,7 @@ const CreateRecipe = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
 
   const createRecipe = (data) => {
     console.log("Form submitted:", data);
@@ -24,7 +26,9 @@ const CreateRecipe = () => {
     fetch("recipe/recipes", requestOptions)
     .then((res) => res.json())
     .then(data => {
-      console.log(data);
+      // console.log(data);
+      reset();
+      navigate("/");
       reset();
     });
     // reset();
