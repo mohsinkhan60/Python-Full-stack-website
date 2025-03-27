@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Button, Card } from 'react-bootstrap';
 
 
 const Recipe=({title,description,onClick,onDelete})=>{
@@ -8,8 +8,8 @@ const Recipe=({title,description,onClick,onDelete})=>{
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <p>{description}</p>
-                {/* <Button variant='primary' onClick={onClick}>Update</Button>
-                <Button variant='danger' onClick={onDelete}>Delete</Button> */}
+                <Button variant='primary' onClick={onClick}>Update</Button>
+                {/* <Button variant='danger' onClick={onDelete}>Delete</Button> */}
             </Card.Body>
         </Card>
     )
