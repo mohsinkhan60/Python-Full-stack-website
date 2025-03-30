@@ -9,7 +9,7 @@ const Recipe=({title,description,onClick,onDelete})=>{
                 <Card.Title>{title}</Card.Title>
                 <p>{description}</p>
                 <Button variant='primary' onClick={onClick}>Update</Button>
-                {/* <Button variant='danger' onClick={onDelete}>Delete</Button> */}
+                <Button className='mx-2' variant='danger' onClick={onDelete}>Delete</Button>
             </Card.Body>
         </Card>
     )

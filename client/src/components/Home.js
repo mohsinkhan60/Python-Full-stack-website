@@ -36,9 +36,40 @@ const LoggedInHome = () => {
       }
     })
   };
+
+  
+  const getAllRecipe = () => {
+    fetch("/recipe/recipes")
+    .then((res) => res.json())
+    .then((data) => {
+      // console.log(data);
+      setRecipes(data);
+    });
+  }
+
+
+  const deleteRecipe = (id) => {
+    const requestOptions = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${JSON.parse(token)}`,
+      },
+    };
+    fetch(`recipe/recipe/${id}`, requestOptions)
+      .then((res) => res.json())
+      .then((data) => {
+        getAllRecipe();
+        // console.log(data);
+        // setRecipes(recipes.filter(recipe => recipe.id !== id));
+      });  
+  }
+
+  let token = localStorage.getItem("REACT_TOKEN_AUTH_KEY");
+
+
   const updateRecipe = (data) => {
     // console.log(data);
-    let token = localStorage.getItem("REACT_TOKEN_AUTH_KEY");
     
     const requestOptions = {
       method: "PUT",
@@ -125,7 +156,12 @@ const LoggedInHome = () => {
           key={index}
           title={recipe.title}
           description={recipe.description}
-          onClick={() => showModel(recipe.id)}
+          onClick={() => {
+            showModel(recipe.id);
+          }}
+          onDelete={() => {
+            deleteRecipe(recipe.id);
+          }}
         />
       ))}
     </div>
