@@ -72,5 +72,5 @@ class Refresh(Resource):
     @jwt_required(refresh=True)
     def post(self):
         current_user = get_jwt_identity()
-        access_token = create_access_token(identity=current_user)
-        return make_response(jsonify({"access_token": access_token}), 200)
+        new_access_token = create_access_token(identity=current_user)
+        return make_response(jsonify({"access_token": new_access_token}), 200)
