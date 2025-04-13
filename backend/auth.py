@@ -67,10 +67,13 @@ class Login(Resource):
                 "refresh_token": refresh_token
             })
         
+        # Return an error response if login fails
+        return {"message": "Invalid username or password"}, 401
+        
 @auth_ns.route('/refresh')
 class Refresh(Resource):
     @jwt_required(refresh=True)
     def post(self):
         current_user = get_jwt_identity()
-        new_access_token = create_access_token(identity=current_user)
-        return make_response(jsonify({"access_token": new_access_token}), 200)
+        access_token = create_access_token(identity=current_user)
+        return make_response(jsonify({"access_token": access_token}), 200)
