@@ -27,7 +27,7 @@ login_model=auth_ns.model(
 
 @auth_ns.route('/signup')
 class SignUp(Resource):
-    # @auth_ns.marshal_with(signup_model)
+    @auth_ns.marshal_with(signup_model)
     @auth_ns.expect(signup_model)
     def post(self):
         data = request.get_json()
